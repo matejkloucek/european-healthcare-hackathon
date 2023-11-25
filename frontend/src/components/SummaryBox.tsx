@@ -64,12 +64,13 @@ export const SummaryBox = ({ id }: Props) => {
   };
 
   return (
-    <Stack>
+    <Stack width={"45%"} paddingRight={8}>
       <Typography fontWeight={FontWeight.Bold} fontSize={22} paddingBottom={1}>
         Průběh hospitalizace ze závěrečné zprávy
       </Typography>
       <Stack
-        width={"750px"}
+      //  width={"750px"}
+        //  maxWidth={"750px"}
         maxHeight={"700px"}
         overflow={"auto"}
         paddingBottom={5}

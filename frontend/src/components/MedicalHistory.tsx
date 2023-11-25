@@ -9,14 +9,15 @@ type Props = {
 
 export const MedicalHistory = ({ data }: Props) => {
   return (
-    <Stack>
+    <Stack width={"45%"} paddingLeft={8}>
       <Typography fontWeight={FontWeight.Bold} fontSize={22} paddingBottom={1}>
         Informace o hospitalizaci
       </Typography>
       <Paper
         variant={"outlined"}
         sx={{
-          width: "750px",
+          //  maxWidth: "750px",
+       //   width: "750px",
           justifyContent: "flex-start",
           maxHeight: "700px",
           overflow: "auto",

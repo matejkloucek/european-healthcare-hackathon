@@ -55,7 +55,7 @@ export const MainPage = () => {
             sx={{ height: "53px" }}
             onClick={() => setDialogOpen(true)}
           >
-            <Typography fontWeight={FontWeight.Bold} fontSize={18}>
+            <Typography fontWeight={FontWeight.Bold} fontSize={18} noWrap>
               Přidejte vlastní hospitalizaci
             </Typography>
           </Button>
@@ -67,12 +67,14 @@ export const MainPage = () => {
             spacing={10}
             height={"800px"}
             alignItems={"center"}
+            justifyContent={"space-around"}
           >
             <MedicalHistory data={detail} />
             <Box
               marginTop={5}
               sx={{
                 height: "700px",
+                maxHeight: "80%",
                 background: Colors.grey150,
                 width: "5px",
               }}
