@@ -68,13 +68,8 @@ export const SummaryBox = ({ id }: Props) => {
       <Typography fontWeight={FontWeight.Bold} fontSize={22} paddingBottom={1}>
         Průběh hospitalizace ze závěrečné zprávy
       </Typography>
-      <Stack
-        //       maxHeight={"700px"}
-        maxHeight={"100%"}
-        overflow={"auto"}
-        paddingRight={3}
-      >
-        <Grid container columnSpacing={0} rowSpacing={4}>
+      <Stack maxHeight={"100%"} overflow={"auto"} paddingRight={3}>
+        <Grid container columnSpacing={0} rowSpacing={2}>
           <Grid item xs={12}>
             <Stack>
               <Typography fontWeight={FontWeight.Bold} fontSize={18}>

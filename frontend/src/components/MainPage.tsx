@@ -80,7 +80,6 @@ export const MainPage = () => {
               marginTop={5}
               sx={{
                 height: "80%",
-                // maxHeight: "80%",
                 background: Colors.grey150,
                 width: "5px",
               }}

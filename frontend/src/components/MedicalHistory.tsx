@@ -17,7 +17,6 @@ export const MedicalHistory = ({ data }: Props) => {
         variant={"outlined"}
         sx={{
           justifyContent: "flex-start",
-          //  maxHeight: "700px",
           maxHeight: "100%",
           overflow: "auto",
           paddingRight: 3,
