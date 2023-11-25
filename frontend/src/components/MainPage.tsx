@@ -61,7 +61,7 @@ export const MainPage = () => {
             onClick={() => setDialogOpen(true)}
           >
             <Typography fontWeight={FontWeight.Bold} fontSize={18} noWrap>
-              Přidejte vlastní hospitalizaci
+              Přidejte novou hospitalizaci
             </Typography>
           </Button>
         </Stack>
