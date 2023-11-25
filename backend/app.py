@@ -1,12 +1,13 @@
+import random
 import sqlite3
 
-from dataclasses import dataclass, asdict
-from typing import List
+from dataclasses import asdict
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from openai_gpt import OpenAiGptModel
+from os_model import get_summarizer
 from dto_models import *
 
 
@@ -37,6 +38,8 @@ gpt_ft_model = OpenAiGptModel(
                            "relevantní a vytvořené pouze na základě informací "
                            "poskytnutých uživatelem."
 )
+
+os_model_fn = get_summarizer()
 
 
 @dataclass
@@ -145,18 +148,25 @@ def get_detail(id: str):
 
 @app.post("/hospitalizations/create")
 def create_new_hospitalization(hosp_dto: HospitalizationInDto):
+    # generate hosp id todo: make this logic better by using UUID or autoincrement in DB
+    hosp_id = random.randrange(1, 5000)
+
     cursor = db_conn.cursor()
-    opers_query = "INSERT INTO Operations (oper_id, hosp_id, description, oper_proc)" \
-                  " VALUES (?, ?, ?, ?)"
     try:
-        cursor.executemany(opers_query, [(oper.oper_id,
-                                          hosp_dto.hosp_id,
-                                          oper.description,
-                                          oper.oper_proc) for oper in hosp_dto.operations])
+        # create operations for hospitalization
+        if hosp_dto.operations:
+            oper_id = random.randrange(1, 5000)  # todo: make this logic better by using UUID or autoincrement in DB
+            opers_query = "INSERT INTO Operations (oper_id, hosp_id, description, oper_proc)" \
+                          " VALUES (?, ?, ?, ?)"
+            cursor.executemany(opers_query, [(oper_id,
+                                              hosp_id,
+                                              oper.description,
+                                              oper.oper_proc) for oper in hosp_dto.operations])
+        # create hospitalization itself
         cursor.execute("INSERT INTO Hospitalization "
                        "(hosp_id, adm_cur_problems, adm_findings, adm_conclusion, "
                        "dis_hosp_reason, dis_opers, dis_exams) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                       (hosp_dto.hosp_id,
+                       (hosp_id,
                         hosp_dto.adm_cur_problems,
                         hosp_dto.adm_findings,
                         hosp_dto.adm_conclusion,
@@ -166,6 +176,7 @@ def create_new_hospitalization(hosp_dto: HospitalizationInDto):
     except sqlite3.IntegrityError as ex:
         raise HTTPException(status_code=400, detail=f"{str(ex)}")
     db_conn.commit()
+    return hosp_id
 
 
 @app.get("/hospitalizations/{id}/gpt")
@@ -206,3 +217,12 @@ def human(id: str):
         "SELECT dis_hosp_summary FROM Hospitalization WHERE hosp_id = ?", (int(id),)
     ).fetchone()
     return {"result": human_discharge[0]}
+
+
+@app.get("/hospitalizations/{id}/os-model")
+def os_model(id: str):
+    cursor = db_conn.cursor()
+    # Skip operations for the os model now
+    hosp_id = int(id)
+    hospitalization = Hospitalization.get_detail(hosp_id)
+    return {"result": os_model_fn(hospitalization.to_string([]))}

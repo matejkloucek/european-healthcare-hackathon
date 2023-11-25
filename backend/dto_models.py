@@ -16,7 +16,6 @@ class OperationInDto(BaseModel):
     - description (str): A description of the operation.
     - oper_proc (str): The procedural details of the operation.
     """
-    oper_id: int
     description: str
     oper_proc: str
 
@@ -35,7 +34,6 @@ class HospitalizationInDto(BaseModel):
     - dis_exams (str): Details of any examinations conducted during discharge.
     - operations (List[OperationInDto]): List of OperationInDto objects representing operations associated with the hospitalization.
     """
-    hosp_id: int
     adm_cur_problems: str
     adm_findings: str
     adm_conclusion: str
