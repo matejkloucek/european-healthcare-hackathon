@@ -39,7 +39,7 @@ gpt_ft_model = OpenAiGptModel(
                            "poskytnutých uživatelem."
 )
 
-os_model = get_summarizer()
+os_model_fn = get_summarizer()
 
 
 @dataclass
@@ -225,4 +225,4 @@ def os_model(id: str):
     # Skip operations for the os model now
     hosp_id = int(id)
     hospitalization = Hospitalization.get_detail(hosp_id)
-    return {"result": os_model(hospitalization.to_string([]))}
+    return {"result": os_model_fn(hospitalization.to_string([]))}
