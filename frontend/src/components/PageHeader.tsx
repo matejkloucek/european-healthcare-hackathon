@@ -1,16 +1,50 @@
-import {AppBar, Stack, Typography} from "@mui/material";
-import {FontWeight} from "../theme/utils";
+import { AppBar, Stack, Typography } from "@mui/material";
+import { FontWeight } from "../theme/utils";
 
 export const PageHeader = () => {
-    return (
-        <AppBar position={"static"}>
-            <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} height={"60px"} paddingX={10}>
-                <Stack direction={"row"} alignItems={"center"}>
-                    <Typography fontWeight={FontWeight.Bold} fontSize={22}>
-                        sample text
-                    </Typography>
-                </Stack>
-            </Stack>
-        </AppBar>
-    );
+  return (
+    <AppBar position={"static"}>
+      <Stack
+        direction={"row"}
+        alignItems={"center"}
+        justifyContent={"space-between"}
+        height={"60px"}
+        paddingX={10}
+      >
+        <Typography fontWeight={FontWeight.Bold} fontSize={22}>
+          Automatizovaná propouštěcí zpráva
+        </Typography>
+        <svg
+          id="Vrstva_1"
+          data-name="Vrstva 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 181.6 159.37"
+          fill={"#ffffff"}
+          width={"40px"}
+          height={"40px"}
+        >
+          <path
+            className="cls-1"
+            d="m25.15,64.85c0,8.05,2.03,8.96,10.66,9.3v2.95H0v-2.95c8.63-.34,10.66-1.25,10.66-9.3V12.25C10.66,4.19,8.63,3.29,0,2.95V0h35.81v2.95c-8.63.34-10.66,1.25-10.66,9.3v52.61Z"
+          />
+          <path
+            className="cls-1"
+            d="m62.98,64.85c0,8.05,2.02,8.96,10.23,9.3v2.95h-34.53v-2.95c7.78-.34,9.81-1.25,9.81-9.3V12.25c0-8.05-2.02-8.96-9.81-9.3V0h34.53v2.95c-8.21.34-10.23,1.25-10.23,9.3v23.1h2.25l17.25-20.5c3.3-3.85,5.96-7.33,7.56-8.94,2.06-2.06.45-2.96-4.56-2.96V0h27.38v2.95c-14.51-.35-16.54,6.91-23.26,14.28l-11.87,14.12,19.62,28.5c8.53,9.98,12.57,13.96,18.75,14.3v2.95h-34.36v-2.95s.74-.05,3.49-.05,1.87-2.5,1.87-2.5l-21.87-31.23-2.25-.02v24.5Z"
+          />
+          <path
+            className="cls-1"
+            d="m119.46,77.1v-2.95c6.93-.34,8.95-1.25,8.95-9.3V12.25c0-8.05-2.02-8.96-8.95-9.3V0h60.34v24.22h-3.94s0-3.37-.75-9.87-6.5-8.68-17.17-8.68h-10.98c-3.3,0-4.05.79-4.05,3.97v25.45h12.36c5.96,0,7.09-2.24,7.09-10.2h3.38v29.71h-3.26c0-6.25-.5-13-7.21-13h-12.36v24.73c0,4.65,1.28,6.24,14.07,6.24,17.13,0,19.38-2.46,20.26-9.09.7-5.33.62-11.5.62-11.5h3.75v25.12h-62.14Z"
+          />
+          <path
+            className="cls-1"
+            d="m127.48,82.2h25.72v2.95c-7.67.34-9.91,1.25-9.91,9.3v52.61c0,8.05,2.24,8.96,9.91,9.3v2.95h-36.1v-2.95c7.9-.34,10.14-1.25,10.14-9.3v-44.47c0-2.57-1.69.01-1.69.01l-25.32,56.76h-3.66l-24.6-56.69s-1.83-2.17-1.83,0v42.22c0,7.48,2.12,10.54,10.85,11.45v2.95h-28.31v-2.95c8.73-.91,10.85-3.97,10.85-11.45v-52.38c0-5.33-2.36-7.37-10.85-7.37v-2.95h27.29l23.2,53.52,24.3-53.52Z"
+          />
+          <polygon
+            className="cls-1"
+            points="125.04 37.04 109.1 37.04 109.1 21.1 106.1 21.1 106.1 37.04 90.17 37.04 90.17 40.04 106.1 40.04 106.1 55.97 109.1 55.97 109.1 40.04 125.04 40.04 125.04 37.04"
+          />
+        </svg>
+      </Stack>
+    </AppBar>
+  );
 };
