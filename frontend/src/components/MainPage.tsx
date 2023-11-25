@@ -38,7 +38,12 @@ export const MainPage = () => {
   return (
     <Stack height={"100vh"}>
       <PageHeader />
-      <Stack alignItems={"center"} marginTop={2} height={"90%"}>
+      <Stack
+        alignItems={"center"}
+        marginTop={2}
+        height={"90%"}
+        paddingBottom={3}
+      >
         <Stack direction={"row"} spacing={3} alignItems={"center"}>
           <Typography fontSize={18} fontWeight={FontWeight.SemiBold}>
             Vyberte z existujicích hospitalizací
@@ -74,8 +79,8 @@ export const MainPage = () => {
             <Box
               marginTop={5}
               sx={{
-               height: "80%",
-               // maxHeight: "80%",
+                height: "80%",
+                // maxHeight: "80%",
                 background: Colors.grey150,
                 width: "5px",
               }}

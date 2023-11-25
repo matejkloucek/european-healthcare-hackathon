@@ -69,8 +69,8 @@ export const SummaryBox = ({ id }: Props) => {
         Průběh hospitalizace ze závěrečné zprávy
       </Typography>
       <Stack
- //       maxHeight={"700px"}
-          maxHeight={"100%"}
+        //       maxHeight={"700px"}
+        maxHeight={"100%"}
         overflow={"auto"}
         paddingRight={3}
       >
