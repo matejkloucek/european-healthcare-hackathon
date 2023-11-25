@@ -3,7 +3,7 @@ import sqlite3
 from dataclasses import dataclass, asdict
 from typing import List
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from openai_gpt import OpenAiGptModel
@@ -114,7 +114,8 @@ class Hospitalization:
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://20.218.157.209:3000"],  # FE URLs
+    allow_origins=["http://localhost:3000", "http://20.218.157.209:3000",
+                   "http://disquill.mild.blue:3000", "http://disquill.mild.blue"],  # FE URLs
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -140,6 +141,31 @@ def get_detail(id: str):
     operations = Operation.get_operations_for_hospitalization(id_int)
     hospitalization = Hospitalization.get_detail(id_int)
     return asdict(hospitalization) | {"operations": operations}
+
+
+@app.post("/hospitalizations/create")
+def create_new_hospitalization(hosp_dto: HospitalizationInDto):
+    cursor = db_conn.cursor()
+    opers_query = "INSERT INTO Operations (oper_id, hosp_id, description, oper_proc)" \
+                  " VALUES (?, ?, ?, ?)"
+    try:
+        cursor.executemany(opers_query, [(oper.oper_id,
+                                          hosp_dto.hosp_id,
+                                          oper.description,
+                                          oper.oper_proc) for oper in hosp_dto.operations])
+        cursor.execute("INSERT INTO Hospitalization "
+                       "(hosp_id, adm_cur_problems, adm_findings, adm_conclusion, "
+                       "dis_hosp_reason, dis_opers, dis_exams) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                       (hosp_dto.hosp_id,
+                        hosp_dto.adm_cur_problems,
+                        hosp_dto.adm_findings,
+                        hosp_dto.adm_conclusion,
+                        hosp_dto.dis_hosp_reason,
+                        hosp_dto.dis_opers,
+                        hosp_dto.dis_exams))
+    except sqlite3.IntegrityError as ex:
+        raise HTTPException(status_code=400, detail=f"{str(ex)}")
+    db_conn.commit()
 
 
 @app.get("/hospitalizations/{id}/gpt")
