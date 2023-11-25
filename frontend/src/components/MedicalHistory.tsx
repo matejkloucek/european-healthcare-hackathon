@@ -11,7 +11,7 @@ export const MedicalHistory = ({ data }: Props) => {
   return (
     <Stack>
       <Typography fontWeight={FontWeight.Bold} fontSize={22} paddingBottom={2}>
-        Anamnéza pacienta
+        Průběh hospitalizace
       </Typography>
       <Stack
         width={"700px"}

@@ -1,5 +1,5 @@
 import { Autocomplete, Button, Stack, TextField } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import SendIcon from '@mui/icons-material/Send';
 import { useState } from "react";
 
 type Props = {
@@ -38,7 +38,7 @@ export const SearchBar = (props: Props) => {
         )}
       />
       <Button variant={"contained"} onClick={handleSearchClick}>
-        <SearchIcon />
+        <SendIcon />
       </Button>
     </Stack>
   );

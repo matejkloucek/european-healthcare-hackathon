@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import {Box, Button, Stack, Typography} from "@mui/material";
 import { PageHeader } from "./PageHeader";
 import { SearchBar } from "./SearchBar";
 import { Colors } from "../theme/colors";
@@ -8,6 +8,7 @@ import { getHospitalizationList } from "../services/getHospitalizationList";
 import { getHospitalizationDetail } from "../services/getHospitalizationDetail";
 import { Hospitalization } from "../model/Hospitalization";
 import { FontWeight } from "../theme/utils";
+import {SummaryBox} from "./SummaryBox";
 
 export const MainPage = () => {
   const [hospitalizations, setHospitalizations] = useState<string[]>([]);
@@ -32,10 +33,24 @@ export const MainPage = () => {
     <>
       <PageHeader />
       <Stack alignItems={"center"} marginTop={2}>
-        <SearchBar
-          options={hospitalizations}
-          onSearchClick={loadHospitalizationDetail}
-        />
+        <Stack direction={"row"} spacing={3} alignItems={"center"}>
+          <Typography fontSize={18} fontWeight={FontWeight.SemiBold}>
+            Vyberte z existujicích hospitalizací
+          </Typography>
+          <SearchBar
+              options={hospitalizations}
+              onSearchClick={loadHospitalizationDetail}
+          />
+          <Typography fontSize={18} fontWeight={FontWeight.SemiBold}>
+            nebo
+          </Typography>
+          <Button variant={"contained"} sx={{height: "53px"}}>
+            <Typography fontWeight={FontWeight.Bold} fontSize={18}>
+              Přidejte vlastní hospitalizaci
+            </Typography>
+          </Button>
+        </Stack>
+
         {detail ? (
           <Stack
             direction={"row"}
@@ -53,7 +68,7 @@ export const MainPage = () => {
                 width: "5px",
               }}
             ></Box>
-            <Stack width={"700px"}>klsdjkas</Stack>
+            <SummaryBox id={detail.id}/>
           </Stack>
         ) : (
           <Box
@@ -67,7 +82,7 @@ export const MainPage = () => {
               fontSize={20}
               color={Colors.grey300}
             >
-              Pro načtení anamnézy zvolte hospitalizaci
+              Pro vygenerování propouštěcí zprávy zvolte hospitalizaci
             </Typography>
           </Box>
         )}

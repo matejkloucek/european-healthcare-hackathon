@@ -15,7 +15,7 @@ type Props = {
 export const MedicalHistoryEntry = (props: Props) => {
   return (
     <ListItem sx={{ alignItems: "flex-start", display: "flex" }}>
-      <ListItemIcon sx={{ marginTop: "7px" }}>
+      <ListItemIcon sx={{ marginTop: "9px" }}>
         <FiberManualRecordIcon style={{ fontSize: 10 }} />
       </ListItemIcon>
       <ListItemText sx={{ marginLeft: -3, alignItems: "flex-start" }}>
