@@ -6,5 +6,4 @@ export type Hospitalization = {
   reasonForHospitalisation: string;
   operationsAtDischarge: string;
   examsAtDischarge: string;
-  operations?: string[];
 };

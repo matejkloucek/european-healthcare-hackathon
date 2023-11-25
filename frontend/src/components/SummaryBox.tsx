@@ -11,11 +11,14 @@ import { useEffect, useState } from "react";
 import { getHumanResponse } from "../services/getHumanResponse";
 import { getGPTResponse } from "../services/getGPTResponse";
 import { getFineTunedGPTResponse } from "../services/getFineTunedGPTResponse";
+import { getOssResponse } from "../services/getOssReponse";
+import { Colors } from "../theme/colors";
 
 type Props = {
   id: string;
+  isCustom: boolean;
 };
-export const SummaryBox = ({ id }: Props) => {
+export const SummaryBox = ({ id, isCustom }: Props) => {
   const [humanResponse, setHumanResponse] = useState<string>("");
   const [ossResponse, setOssResponse] = useState<string>("");
   const [gptResponse, setGptResponse] = useState<string>("");
@@ -45,7 +48,8 @@ export const SummaryBox = ({ id }: Props) => {
 
   const loadOssResponse = async () => {
     setOssResponseLoading(true);
-    setOssResponse("Tohle je jen sample text ahoj jak se máš!");
+    const response = await getOssResponse(id);
+    setOssResponse(response);
     setOssResponseLoading(false);
   };
 
@@ -70,31 +74,33 @@ export const SummaryBox = ({ id }: Props) => {
       </Typography>
       <Stack maxHeight={"100%"} overflow={"auto"} paddingRight={3}>
         <Grid container columnSpacing={0} rowSpacing={2}>
-          <Grid item xs={12}>
-            <Stack>
-              <Typography fontWeight={FontWeight.Bold} fontSize={18}>
-                Lékař
-              </Typography>
-              <Paper
-                variant={"outlined"}
-                sx={{ padding: "15px", minHeight: "100px" }}
-              >
-                {humanResponseLoading ? (
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    height={"100px"}
-                    width={"100%"}
-                  >
-                    <CircularProgress />
-                  </Box>
-                ) : (
-                  humanResponse
-                )}
-              </Paper>
-            </Stack>
-          </Grid>
+          {!isCustom && (
+            <Grid item xs={12}>
+              <Stack>
+                <Typography fontWeight={FontWeight.Bold} fontSize={18}>
+                  Lékař
+                </Typography>
+                <Paper
+                  variant={"outlined"}
+                  sx={{ padding: "15px", minHeight: "100px" }}
+                >
+                  {humanResponseLoading ? (
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      height={"100px"}
+                      width={"100%"}
+                    >
+                      <CircularProgress />
+                    </Box>
+                  ) : (
+                    humanResponse
+                  )}
+                </Paper>
+              </Stack>
+            </Grid>
+          )}
           <Grid item xs={12}>
             <Typography fontWeight={FontWeight.Bold} fontSize={18}>
               Fine Tuned GPT 3.5
@@ -134,7 +140,13 @@ export const SummaryBox = ({ id }: Props) => {
                   height={"100px"}
                   width={"100%"}
                 >
-                  <CircularProgress />
+                  <Stack alignItems={"center"} spacing={1}>
+                    <CircularProgress />
+                    <Typography color={Colors.grey500}>
+                      Načítání může zabrat delší dobu kvůli dočasným hardwarovým
+                      omezením.
+                    </Typography>
+                  </Stack>
                 </Box>
               ) : (
                 ossResponse

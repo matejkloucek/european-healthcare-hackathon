@@ -10,16 +10,15 @@ import { Hospitalization } from "../model/Hospitalization";
 import { FontWeight } from "../theme/utils";
 import { SummaryBox } from "./SummaryBox";
 import { CustomHospitalizationDialog } from "./CustomHospitalizationDialog";
+import { postCustomHospitalization } from "../services/postCustomHospitalization";
 
 export const MainPage = () => {
   const [hospitalizations, setHospitalizations] = useState<string[]>([]);
   const [detail, setDetail] = useState<Hospitalization | undefined>(undefined);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [customHospitalization, setCustomHospitalization] =
-    useState<string>("");
+  const [isCustom, setIsCustom] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("Loading all hospitalizations");
     loadAllHospitalizations();
   }, []);
 
@@ -29,11 +28,24 @@ export const MainPage = () => {
   };
 
   const loadHospitalizationDetail = async (hospitalizationId: string) => {
+    setIsCustom(false);
     const response = await getHospitalizationDetail(hospitalizationId);
     setDetail(response);
   };
 
-  console.log(customHospitalization);
+  const handleDialogSubmit = async (hospitalization: Hospitalization) => {
+    setIsCustom(true);
+    const response_id = await postCustomHospitalization(hospitalization);
+    setDetail({
+      id: response_id,
+      problemsAtAdmission: hospitalization.problemsAtAdmission,
+      findingsAtAdmission: hospitalization.findingsAtAdmission,
+      conclusionAtAdmission: hospitalization.conclusionAtAdmission,
+      reasonForHospitalisation: hospitalization.reasonForHospitalisation,
+      operationsAtDischarge: hospitalization.operationsAtDischarge,
+      examsAtDischarge: hospitalization.examsAtDischarge,
+    });
+  };
 
   return (
     <Stack height={"100vh"}>
@@ -84,7 +96,7 @@ export const MainPage = () => {
                 width: "5px",
               }}
             ></Box>
-            <SummaryBox id={detail.id} />
+            <SummaryBox id={detail.id} isCustom={isCustom} />
           </Stack>
         ) : (
           <Box
@@ -106,7 +118,7 @@ export const MainPage = () => {
       <CustomHospitalizationDialog
         isOpen={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        onSubmit={(text) => setCustomHospitalization(text)}
+        onSubmit={handleDialogSubmit}
       />
     </Stack>
   );

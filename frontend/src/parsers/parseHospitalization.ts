@@ -1,7 +1,6 @@
 import { Hospitalization } from "../model/Hospitalization";
 
 export const parseHospitalization = (data: any): Hospitalization => {
-  console.log("data before parsing: ", data);
   return {
     id: data.hosp_id,
     problemsAtAdmission: data.adm_cur_problems,
@@ -10,6 +9,5 @@ export const parseHospitalization = (data: any): Hospitalization => {
     reasonForHospitalisation: data.dis_hosp_reason,
     operationsAtDischarge: data.dis_opers,
     examsAtDischarge: data.dis_exams,
-    operations: data.operations,
   };
 };
