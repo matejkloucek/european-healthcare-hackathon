@@ -36,9 +36,9 @@ export const MainPage = () => {
   console.log(customHospitalization);
 
   return (
-    <>
+    <Stack height={"100vh"}>
       <PageHeader />
-      <Stack alignItems={"center"} marginTop={2}>
+      <Stack alignItems={"center"} marginTop={2} height={"90%"}>
         <Stack direction={"row"} spacing={3} alignItems={"center"}>
           <Typography fontSize={18} fontWeight={FontWeight.SemiBold}>
             Vyberte z existujicích hospitalizací
@@ -65,16 +65,17 @@ export const MainPage = () => {
           <Stack
             direction={"row"}
             spacing={10}
-            height={"800px"}
+            height={"90%"}
             alignItems={"center"}
             justifyContent={"space-around"}
+            paddingTop={5}
           >
             <MedicalHistory data={detail} />
             <Box
               marginTop={5}
               sx={{
-                height: "700px",
-                maxHeight: "80%",
+               height: "80%",
+               // maxHeight: "80%",
                 background: Colors.grey150,
                 width: "5px",
               }}
@@ -103,6 +104,6 @@ export const MainPage = () => {
         onClose={() => setDialogOpen(false)}
         onSubmit={(text) => setCustomHospitalization(text)}
       />
-    </>
+    </Stack>
   );
 };
