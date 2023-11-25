@@ -9,10 +9,13 @@ import { getHospitalizationDetail } from "../services/getHospitalizationDetail";
 import { Hospitalization } from "../model/Hospitalization";
 import { FontWeight } from "../theme/utils";
 import {SummaryBox} from "./SummaryBox";
+import {CustomHospitalizationDialog} from "./CustomHospitalizationDialog";
 
 export const MainPage = () => {
   const [hospitalizations, setHospitalizations] = useState<string[]>([]);
   const [detail, setDetail] = useState<Hospitalization | undefined>(undefined);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [customHospitalization, setCustomHospitalization] = useState<string>("");
 
   useEffect(() => {
     console.log("Loading all hospitalizations");
@@ -29,6 +32,8 @@ export const MainPage = () => {
     setDetail(response);
   };
 
+  console.log(customHospitalization)
+
   return (
     <>
       <PageHeader />
@@ -44,7 +49,7 @@ export const MainPage = () => {
           <Typography fontSize={18} fontWeight={FontWeight.SemiBold}>
             nebo
           </Typography>
-          <Button variant={"contained"} sx={{height: "53px"}}>
+          <Button variant={"contained"} sx={{height: "53px"}} onClick={() => setDialogOpen(true)}>
             <Typography fontWeight={FontWeight.Bold} fontSize={18}>
               Přidejte vlastní hospitalizaci
             </Typography>
@@ -87,6 +92,11 @@ export const MainPage = () => {
           </Box>
         )}
       </Stack>
+      <CustomHospitalizationDialog
+          isOpen={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          onSubmit={(text) => setCustomHospitalization(text)}
+      />
     </>
   );
 };

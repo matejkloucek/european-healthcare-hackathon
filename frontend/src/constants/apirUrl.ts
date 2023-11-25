@@ -1,1 +1,1 @@
-export const apirUrl: string = "https://eb4d-46-135-19-212.ngrok.io";
+export const apirUrl: string = "http://20.218.157.209:8080";

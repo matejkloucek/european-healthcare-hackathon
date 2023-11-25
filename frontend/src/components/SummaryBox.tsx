@@ -1,4 +1,4 @@
-import { Grid, Paper, Stack, Typography} from "@mui/material";
+import {Box, CircularProgress, Grid, Paper, Stack, Typography} from "@mui/material";
 import {FontWeight} from "../theme/utils";
 import {useEffect, useState} from "react";
 import {getHumanResponse} from "../services/getHumanResponse";
@@ -61,9 +61,11 @@ export const SummaryBox = ({id}: Props) => {
                     <Typography fontWeight={FontWeight.Bold} fontSize={18}>Lékař</Typography>
                     <Paper variant={"outlined"} sx={{padding: "15px", minHeight: "100px"}}>
                         {humanResponseLoading ? (
-                            humanResponse
+                            <Box display="flex" alignItems="center" justifyContent="center" height={"100px"} width={"100%"}>
+                                 <CircularProgress />
+                            </Box>
                         ) : (
-                            <></>
+                            humanResponse
                         )}
                     </Paper>
                 </Stack>
@@ -71,20 +73,38 @@ export const SummaryBox = ({id}: Props) => {
             <Grid item xs={12}>
                 <Typography fontWeight={FontWeight.Bold} fontSize={18}>Fine Tuned GPT</Typography>
                 <Paper variant={"outlined"} sx={{padding: "15px", minHeight: "100px"}}>
-                    {fineTunedResponse}
+                    {fineTunedResponseLoading ? (
+                        <Box display="flex" alignItems="center" justifyContent="center" height={"100px"} width={"100%"}>
+                            <CircularProgress />
+                        </Box>
+                    ): (
+                        fineTunedResponse
+                    )}
                 </Paper>
             </Grid>
             <Grid item xs={12}>
                 <Typography fontWeight={FontWeight.Bold} fontSize={18}>Open-Source LLM</Typography>
                 <Paper variant={"outlined"} sx={{padding: "15px", minHeight: "100px"}}>
-                    {ossResponse}
+                    {ossResponseLoading ? (
+                        <Box display="flex" alignItems="center" justifyContent="center" height={"100px"} width={"100%"}>
+                            <CircularProgress />
+                        </Box>
+                    ) : (
+                        ossResponse
+                    )}
                 </Paper>
             </Grid>
 
             <Grid item xs={12}>
                 <Typography fontWeight={FontWeight.Bold} fontSize={18}>Chat GPT</Typography>
                 <Paper variant={"outlined"} sx={{padding: "15px", minHeight: "100px"}}>
-                    {gptResponse}
+                    {gptResponseLoading ? (
+                        <Box display="flex" alignItems="center" justifyContent="center" height={"100px"} width={"100%"}>
+                            <CircularProgress />
+                        </Box>
+                    ): (
+                        gptResponse
+                    )}
                 </Paper>
             </Grid>
         </Grid>
