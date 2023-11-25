@@ -221,7 +221,7 @@ def human(id: str):
 
 @app.get("/hospitalizations/{id}/os-model")
 def os_model(id: str):
-    cursor = db_conn.curosr()
+    cursor = db_conn.cursor()
     # Skip operations for the os model now
     hosp_id = int(id)
     hospitalization = Hospitalization.get_detail(hosp_id)
