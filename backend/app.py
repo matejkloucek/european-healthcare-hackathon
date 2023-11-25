@@ -7,6 +7,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from openai_gpt import OpenAiGptModel
+from os_model import get_summarizer
 from dto_models import *
 
 
@@ -37,6 +38,8 @@ gpt_ft_model = OpenAiGptModel(
                            "relevantní a vytvořené pouze na základě informací "
                            "poskytnutých uživatelem."
 )
+
+os_model = get_summarizer()
 
 
 @dataclass
@@ -206,3 +209,12 @@ def human(id: str):
         "SELECT dis_hosp_summary FROM Hospitalization WHERE hosp_id = ?", (int(id),)
     ).fetchone()
     return {"result": human_discharge[0]}
+
+
+@app.get("/hospitalizations/{id}/os-model")
+def os_model(id: str):
+    cursor = db_conn.curosr()
+    # Skip operations for the os model now
+    hosp_id = int(id)
+    hospitalization = Hospitalization.get_detail(hosp_id)
+    return {"result": os_model(hospitalization.to_string([]))}
