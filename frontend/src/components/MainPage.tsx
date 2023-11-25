@@ -1,4 +1,4 @@
-import {Box, Button, Stack, Typography} from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import { PageHeader } from "./PageHeader";
 import { SearchBar } from "./SearchBar";
 import { Colors } from "../theme/colors";
@@ -8,14 +8,15 @@ import { getHospitalizationList } from "../services/getHospitalizationList";
 import { getHospitalizationDetail } from "../services/getHospitalizationDetail";
 import { Hospitalization } from "../model/Hospitalization";
 import { FontWeight } from "../theme/utils";
-import {SummaryBox} from "./SummaryBox";
-import {CustomHospitalizationDialog} from "./CustomHospitalizationDialog";
+import { SummaryBox } from "./SummaryBox";
+import { CustomHospitalizationDialog } from "./CustomHospitalizationDialog";
 
 export const MainPage = () => {
   const [hospitalizations, setHospitalizations] = useState<string[]>([]);
   const [detail, setDetail] = useState<Hospitalization | undefined>(undefined);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [customHospitalization, setCustomHospitalization] = useState<string>("");
+  const [customHospitalization, setCustomHospitalization] =
+    useState<string>("");
 
   useEffect(() => {
     console.log("Loading all hospitalizations");
@@ -32,7 +33,7 @@ export const MainPage = () => {
     setDetail(response);
   };
 
-  console.log(customHospitalization)
+  console.log(customHospitalization);
 
   return (
     <>
@@ -43,13 +44,17 @@ export const MainPage = () => {
             Vyberte z existujicích hospitalizací
           </Typography>
           <SearchBar
-              options={hospitalizations}
-              onSearchClick={loadHospitalizationDetail}
+            options={hospitalizations}
+            onSearchClick={loadHospitalizationDetail}
           />
           <Typography fontSize={18} fontWeight={FontWeight.SemiBold}>
             nebo
           </Typography>
-          <Button variant={"contained"} sx={{height: "53px"}} onClick={() => setDialogOpen(true)}>
+          <Button
+            variant={"contained"}
+            sx={{ height: "53px" }}
+            onClick={() => setDialogOpen(true)}
+          >
             <Typography fontWeight={FontWeight.Bold} fontSize={18}>
               Přidejte vlastní hospitalizaci
             </Typography>
@@ -60,7 +65,6 @@ export const MainPage = () => {
           <Stack
             direction={"row"}
             spacing={10}
-            marginTop={5}
             height={"800px"}
             alignItems={"center"}
           >
@@ -73,14 +77,14 @@ export const MainPage = () => {
                 width: "5px",
               }}
             ></Box>
-            <SummaryBox id={detail.id}/>
+            <SummaryBox id={detail.id} />
           </Stack>
         ) : (
           <Box
             display="flex"
             alignItems="center"
             justifyContent="center"
-            height="500px" // Adjust as needed
+            height="500px"
           >
             <Typography
               fontWeight={FontWeight.Bold}
@@ -93,9 +97,9 @@ export const MainPage = () => {
         )}
       </Stack>
       <CustomHospitalizationDialog
-          isOpen={dialogOpen}
-          onClose={() => setDialogOpen(false)}
-          onSubmit={(text) => setCustomHospitalization(text)}
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onSubmit={(text) => setCustomHospitalization(text)}
       />
     </>
   );

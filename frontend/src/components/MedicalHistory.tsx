@@ -1,4 +1,4 @@
-import { List, Stack, Typography } from "@mui/material";
+import { List, Paper, Stack, Typography } from "@mui/material";
 import { FontWeight } from "../theme/utils";
 import { Hospitalization } from "../model/Hospitalization";
 import { MedicalHistoryEntry } from "./MedicalHistoryEntry";
@@ -10,15 +10,18 @@ type Props = {
 export const MedicalHistory = ({ data }: Props) => {
   return (
     <Stack>
-      <Typography fontWeight={FontWeight.Bold} fontSize={22} paddingBottom={2}>
-        Průběh hospitalizace
+      <Typography fontWeight={FontWeight.Bold} fontSize={22} paddingBottom={1}>
+        Informace o hospitalizaci
       </Typography>
-      <Stack
-        width={"700px"}
-        justifyContent={"flex-start"}
-        maxHeight={"800px"}
-        overflow={"auto"}
-        pr={5}
+      <Paper
+        variant={"outlined"}
+        sx={{
+          width: "750px",
+          justifyContent: "flex-start",
+          maxHeight: "700px",
+          overflow: "auto",
+          paddingRight: 3,
+        }}
       >
         <List>
           <MedicalHistoryEntry
@@ -46,7 +49,7 @@ export const MedicalHistory = ({ data }: Props) => {
             text={data.examsAtDischarge}
           />
         </List>
-      </Stack>
+      </Paper>
     </Stack>
   );
 };

@@ -6,7 +6,7 @@ export const appTheme: ThemeOptions = createTheme({
   typography: {
     fontFamily: FontFamilyParagraph,
     fontWeightRegular: 500,
-    fontSize: 12.25,
+    fontSize: 14,
     h1: {
       fontFamily: FontFamilyHeadings,
       fontSize: 36,
