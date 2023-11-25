@@ -114,7 +114,7 @@ class Hospitalization:
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://20.218.157.209:3000/"],  # FE URL
+    allow_origins=["http://localhost:3000", "http://20.218.157.209:3000"],  # FE URLs
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
