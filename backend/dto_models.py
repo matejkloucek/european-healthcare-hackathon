@@ -4,17 +4,17 @@ from pydantic import BaseModel
 
 
 class OperationInDto(BaseModel):
-    description: str
-    oper_proc: str
+    description: Optional[str]
+    oper_proc: Optional[str]
 
 
 class HospitalizationInDto(BaseModel):
-    adm_cur_problems: str
-    adm_findings: str
-    adm_conclusion: str
-    dis_hosp_reason: str
-    dis_opers: str
-    dis_exams: str
+    adm_cur_problems: Optional[str]
+    adm_findings: Optional[str]
+    adm_conclusion: Optional[str]
+    dis_hosp_reason: Optional[str]
+    dis_opers: Optional[str]
+    dis_exams: Optional[str]
     operations: List[OperationInDto]
 
 
@@ -25,8 +25,8 @@ class HospitalizationIdsOutDto(BaseModel):
 class OperationOutDto(BaseModel):
     oper_id: int
     hosp_id: int
-    description: str
-    oper_proc: str
+    description: Optional[str]
+    oper_proc: Optional[str]
 
 
 class HospitalizationOutDto(BaseModel):

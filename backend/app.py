@@ -160,13 +160,15 @@ def create_new_hospitalization(hosp_dto: HospitalizationInDto):
     try:
         # create operations for hospitalization
         if hosp_dto.operations:
+            non_empty_operation = [oper for oper in hosp_dto.operations
+                                   if oper.description or oper.oper_proc]  # todo: in future more consistent with FE
             oper_id = random.randrange(1, 5000)  # todo: make this logic better by using UUID or autoincrement in DB
             opers_query = "INSERT INTO Operations (oper_id, hosp_id, description, oper_proc)" \
                           " VALUES (?, ?, ?, ?)"
             cursor.executemany(opers_query, [(oper_id,
                                               hosp_id,
                                               oper.description,
-                                              oper.oper_proc) for oper in hosp_dto.operations])
+                                              oper.oper_proc) for oper in non_empty_operation])
         # create hospitalization itself
         cursor.execute("INSERT INTO Hospitalization "
                        "(hosp_id, adm_cur_problems, adm_findings, adm_conclusion, "
