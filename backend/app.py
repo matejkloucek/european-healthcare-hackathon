@@ -205,7 +205,7 @@ def gpt_ft(id: str):
     return {"result": gpt_ft_model.ask(hospitalization.to_string(operations))}
 
 
-@app.get("/hospitalizations/{id}/human", response_model=LLModelOutDto)
+@app.get("/hospitalizations/{id}/human")
 def human(id: str):
     """
     todo:
