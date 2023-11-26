@@ -125,7 +125,7 @@ app.add_middleware(
 )
 
 
-@app.get("/hospitalizations", response_model=HospitalizationIdsOutDto)
+@app.get("/hospitalizations")
 def get_all():
     """
     Get all hospitalizations IDs.
@@ -186,7 +186,7 @@ def create_new_hospitalization(hosp_dto: HospitalizationInDto):
     return hosp_id
 
 
-@app.get("/hospitalizations/{id}/gpt", response_model=LLModelOutDto)
+@app.get("/hospitalizations/{id}/gpt")
 def gpt(id: str):
     """
     Generate hospitalization summary with GPT-3.5
@@ -199,7 +199,7 @@ def gpt(id: str):
     return {"result": gpt_model.ask(hospitalization.to_string(operations))}
 
 
-@app.get("/hospitalizations/{id}/gpt-ft", response_model=LLModelOutDto)
+@app.get("/hospitalizations/{id}/gpt-ft")
 def gpt_ft(id: str):
     """
     Generate hospitalization summary with fined tuned GPT-3.5
@@ -226,7 +226,7 @@ def human(id: str):
     return {"result": human_discharge[0]}
 
 
-@app.get("/hospitalizations/{id}/os-model", response_model=LLModelOutDto)
+@app.get("/hospitalizations/{id}/os-model")
 def os_model(id: str):
     """
     Generate hospitalization summary with our own open source LLM.
