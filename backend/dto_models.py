@@ -24,6 +24,7 @@ class HospitalizationIdsOutDto(BaseModel):
 
 class OperationOutDto(BaseModel):
     oper_id: int
+    hosp_id: int
     description: str
     oper_proc: str
 
