@@ -1,7 +1,7 @@
 import random
 import sqlite3
 
-from dataclasses import asdict
+from dataclasses import asdict, dataclass
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -130,15 +130,15 @@ def hello():
     return "Hello"
 
 
-@app.get("/hospitalizations")
+@app.get("/hospitalizations", response_model=HospitalizationIdsOutDto)
 def get_all():
     """
     Return all hospitalizations ids.
     """
-    return {'hosp_ids': Hospitalization.get_all_ids()[-100:]}  # todo: show more later
+    return {'hosp_ids': Hospitalization.get_all_ids()}
 
 
-@app.get("/hospitalizations/{id}")
+@app.get("/hospitalizations/{id}", response_model=HospitalizationOutDto)
 def get_detail(id: str):
     id_int = int(id)
     operations = Operation.get_operations_for_hospitalization(id_int)
@@ -179,7 +179,7 @@ def create_new_hospitalization(hosp_dto: HospitalizationInDto):
     return hosp_id
 
 
-@app.get("/hospitalizations/{id}/gpt")
+@app.get("/hospitalizations/{id}/gpt", response_model=LLModelOutDto)
 def gpt(id: str):
     """
     Generate hospitalization procedure with fined tuned GPT-3.5
@@ -192,7 +192,7 @@ def gpt(id: str):
     return {"result": gpt_model.ask(hospitalization.to_string(operations))}
 
 
-@app.get("/hospitalizations/{id}/gpt-ft")
+@app.get("/hospitalizations/{id}/gpt-ft", response_model=LLModelOutDto)
 def gpt_ft(id: str):
     """
     Generate hospitalization procedure with fined tuned GPT-3.5
@@ -205,7 +205,7 @@ def gpt_ft(id: str):
     return {"result": gpt_ft_model.ask(hospitalization.to_string(operations))}
 
 
-@app.get("/hospitalizations/{id}/human")
+@app.get("/hospitalizations/{id}/human", response_model=LLModelOutDto)
 def human(id: str):
     """
     todo:
@@ -219,7 +219,7 @@ def human(id: str):
     return {"result": human_discharge[0]}
 
 
-@app.get("/hospitalizations/{id}/os-model")
+@app.get("/hospitalizations/{id}/os-model", response_model=LLModelOutDto)
 def os_model(id: str):
     cursor = db_conn.cursor()
     # Skip operations for the os model now
