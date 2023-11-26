@@ -125,11 +125,6 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-def hello():
-    return "Hello"
-
-
 @app.get("/hospitalizations", response_model=HospitalizationIdsOutDto)
 def get_all():
     """
