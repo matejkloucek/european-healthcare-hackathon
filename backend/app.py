@@ -141,7 +141,7 @@ def get_all():
 @app.get("/hospitalizations/{id}", response_model=HospitalizationOutDto)
 def get_detail(id: str):
     id_int = int(id)
-    operations = Operation.get_operations_for_hospitalization(id_int)
+    operations = Operation.get_operations_for_hospitalization(id_int) or []
     hospitalization = Hospitalization.get_detail(id_int)
     return asdict(hospitalization) | {"operations": operations}
 
