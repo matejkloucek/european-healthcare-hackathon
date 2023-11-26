@@ -37,7 +37,7 @@ class HospitalizationOutDto(BaseModel):
     dis_hosp_reason: str
     dis_opers: str
     dis_exams: str
-    operations: List[OperationOutDto]
+    operations: List[str]
 
 
 class LLModelOutDto(BaseModel):
