@@ -133,13 +133,18 @@ def hello():
 @app.get("/hospitalizations", response_model=HospitalizationIdsOutDto)
 def get_all():
     """
-    Return all hospitalizations ids.
+    Get all hospitalizations IDs.
     """
     return {'hosp_ids': Hospitalization.get_all_ids()}
 
 
 @app.get("/hospitalizations/{id}", response_model=HospitalizationOutDto)
 def get_detail(id: str):
+    """
+    Get detail of the hospitalization.
+    :param id:
+    :return:
+    """
     id_int = int(id)
     operations = Operation.get_operations_for_hospitalization(id_int) or []
     hospitalization = Hospitalization.get_detail(id_int)
@@ -148,6 +153,11 @@ def get_detail(id: str):
 
 @app.post("/hospitalizations/create")
 def create_new_hospitalization(hosp_dto: HospitalizationInDto):
+    """
+    Create new hospitalization record.
+    :param hosp_dto:
+    :return:
+    """
     # generate hosp id todo: make this logic better by using UUID or autoincrement in DB
     hosp_id = random.randrange(1, 5000)
 
@@ -182,7 +192,7 @@ def create_new_hospitalization(hosp_dto: HospitalizationInDto):
 @app.get("/hospitalizations/{id}/gpt", response_model=LLModelOutDto)
 def gpt(id: str):
     """
-    Generate hospitalization procedure with fined tuned GPT-3.5
+    Generate hospitalization summary with GPT-3.5
     :param id:
     :return:
     """
@@ -195,7 +205,7 @@ def gpt(id: str):
 @app.get("/hospitalizations/{id}/gpt-ft", response_model=LLModelOutDto)
 def gpt_ft(id: str):
     """
-    Generate hospitalization procedure with fined tuned GPT-3.5
+    Generate hospitalization summary with fined tuned GPT-3.5
     :param id:
     :return:
     """
@@ -208,7 +218,7 @@ def gpt_ft(id: str):
 @app.get("/hospitalizations/{id}/human")
 def human(id: str):
     """
-    todo:
+    Get hospitalization summary (dis_hosp_summary) as ground truth.
     :param id:
     :return:
     """
@@ -221,8 +231,12 @@ def human(id: str):
 
 @app.get("/hospitalizations/{id}/os-model", response_model=LLModelOutDto)
 def os_model(id: str):
-    cursor = db_conn.cursor()
-    # Skip operations for the os model now
+    """
+    Generate hospitalization summary with our own open source LLM.
+    :param id:
+    :return:
+    """
+    # todo: Skip operations for the os model now
     hosp_id = int(id)
     hospitalization = Hospitalization.get_detail(hosp_id)
     return {"result": os_model_fn(hospitalization.to_string([]))}
