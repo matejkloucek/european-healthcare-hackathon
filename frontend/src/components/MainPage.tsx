@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Link, Stack, Typography } from "@mui/material";
 import { PageHeader } from "./PageHeader";
 import { SearchBar } from "./SearchBar";
 import { Colors } from "../theme/colors";
@@ -103,15 +103,30 @@ export const MainPage = () => {
             display="flex"
             alignItems="center"
             justifyContent="center"
-            height="500px"
+            height="80%"
           >
-            <Typography
-              fontWeight={FontWeight.Bold}
-              fontSize={20}
-              color={Colors.grey300}
-            >
-              Pro vygenerování propouštěcí zprávy zvolte hospitalizaci
-            </Typography>
+            <Stack spacing={10} alignItems={"center"}>
+              <Typography
+                fontWeight={FontWeight.Bold}
+                fontSize={20}
+                color={Colors.grey500}
+              >
+                Pro vygenerování propouštěcí zprávy zvolte hospitalizaci
+              </Typography>
+              <Typography color={Colors.grey500} fontSize={18}>
+                Nebo si prohlédněte naši
+                <Link
+                  marginLeft={1}
+                  fontSize={20}
+                  color={"inherit"}
+                  fontWeight={FontWeight.Bold}
+                  href={"http://disquill.mild.blue:8080/swagger#/"}
+                  target={"_blank"}
+                >
+                  API
+                </Link>
+              </Typography>
+            </Stack>
           </Box>
         )}
       </Stack>

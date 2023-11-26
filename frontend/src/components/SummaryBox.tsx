@@ -74,7 +74,7 @@ export const SummaryBox = ({ id, isCustom }: Props) => {
       </Typography>
       <Stack maxHeight={"100%"} overflow={"auto"} paddingRight={3}>
         <Grid container columnSpacing={0} rowSpacing={2}>
-          {!isCustom && (
+          {!isCustom && !!humanResponse && (
             <Grid item xs={12}>
               <Stack>
                 <Typography fontWeight={FontWeight.Bold} fontSize={18}>
@@ -103,6 +103,35 @@ export const SummaryBox = ({ id, isCustom }: Props) => {
           )}
           <Grid item xs={12}>
             <Typography fontWeight={FontWeight.Bold} fontSize={18}>
+              Open-Source LLM
+            </Typography>
+            <Paper
+              variant={"outlined"}
+              sx={{ padding: "15px", minHeight: "100px" }}
+            >
+              {ossResponseLoading ? (
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  height={"100px"}
+                  width={"100%"}
+                >
+                  <Stack alignItems={"center"} spacing={1}>
+                    <CircularProgress />
+                    <Typography color={Colors.grey500}>
+                      Generování může trvat delší dobu kvůli dočasným
+                      hardwarovým omezením.
+                    </Typography>
+                  </Stack>
+                </Box>
+              ) : (
+                ossResponse
+              )}
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography fontWeight={FontWeight.Bold} fontSize={18}>
               Fine Tuned GPT 3.5
             </Typography>
             <Paper
@@ -121,35 +150,6 @@ export const SummaryBox = ({ id, isCustom }: Props) => {
                 </Box>
               ) : (
                 fineTunedResponse
-              )}
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography fontWeight={FontWeight.Bold} fontSize={18}>
-              Open-Source LLM
-            </Typography>
-            <Paper
-              variant={"outlined"}
-              sx={{ padding: "15px", minHeight: "100px" }}
-            >
-              {ossResponseLoading ? (
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  height={"100px"}
-                  width={"100%"}
-                >
-                  <Stack alignItems={"center"} spacing={1}>
-                    <CircularProgress />
-                    <Typography color={Colors.grey500}>
-                      Načítání může zabrat delší dobu kvůli dočasným hardwarovým
-                      omezením.
-                    </Typography>
-                  </Stack>
-                </Box>
-              ) : (
-                ossResponse
               )}
             </Paper>
           </Grid>
