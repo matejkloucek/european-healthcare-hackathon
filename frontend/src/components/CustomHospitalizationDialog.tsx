@@ -126,7 +126,7 @@ export const CustomHospitalizationDialog = (props: Props) => {
         />
         <Box
           sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}
-          paddingTop={1}
+          paddingTop={1} paddingBottom={2}
         >
           <Button variant="contained" onClick={handleClick}>
             <Typography fontWeight={FontWeight.Bold}>Přidat</Typography>

@@ -34,6 +34,7 @@ export const MainPage = () => {
   };
 
   const handleDialogSubmit = async (hospitalization: Hospitalization) => {
+    setDialogOpen(false);
     setIsCustom(true);
     const response_id = await postCustomHospitalization(hospitalization);
     setDetail({
