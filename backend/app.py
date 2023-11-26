@@ -133,7 +133,7 @@ def get_all():
     return {'hosp_ids': Hospitalization.get_all_ids()}
 
 
-@app.get("/hospitalizations/{id}", response_model=HospitalizationOutDto)
+@app.get("/hospitalizations/{id}")
 def get_detail(id: str):
     """
     Get detail of the hospitalization.
@@ -141,7 +141,7 @@ def get_detail(id: str):
     :return:
     """
     id_int = int(id)
-    operations = Operation.get_operations_for_hospitalization(id_int) or []
+    operations = Operation.get_operations_for_hospitalization(id_int)
     hospitalization = Hospitalization.get_detail(id_int)
     return asdict(hospitalization) | {"operations": operations}
 
